@@ -1,6 +1,7 @@
-// App.jsx أو page.jsx
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
+// مكون لوحة التحكم الرئيسي
 export default function Dashboard() {
   const [activeSection, setActiveSection] = useState('customers');
 
@@ -40,6 +41,7 @@ export default function Dashboard() {
   );
 }
 
+// مكون العنصر في الشريط الجانبي
 function SidebarItem({ label, id, setActive }) {
   return (
     <li
@@ -51,6 +53,13 @@ function SidebarItem({ label, id, setActive }) {
   );
 }
 
+SidebarItem.propTypes = {
+  label: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  setActive: PropTypes.func.isRequired,
+};
+
+// مكون القسم الذي يعرض المحتوى بناءً على القسم النشط
 function Section({ title, text }) {
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
@@ -59,3 +68,8 @@ function Section({ title, text }) {
     </div>
   );
 }
+
+Section.propTypes = {
+  title: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+};
