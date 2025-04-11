@@ -1,75 +1,40 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-
-// مكون لوحة التحكم الرئيسي
-export default function Dashboard() {
-  const [activeSection, setActiveSection] = useState('customers');
-
-  const renderSection = () => {
-    switch (activeSection) {
-      case 'customers':
-        return <Section title="إدارة العملاء" text="أضف، عدل، أو احذف بيانات العملاء." />;
-      case 'invoices':
-        return <Section title="الفواتير" text="عرض وإنشاء الفواتير." />;
-      case 'finance':
-        return <Section title="السجلات المالية" text="عرض الدخل والمصروفات." />;
-      case 'inventory':
-        return <Section title="المخزن" text="إدارة المنتجات والمخزون." />;
-      default:
-        return null;
-    }
-  };
-
+export default function Home() {
   return (
-    <div className="flex min-h-screen bg-gray-100" dir="rtl">
+    <main className="flex h-screen">
       {/* الشريط الجانبي */}
-      <aside className="w-64 bg-gray-800 text-white flex flex-col">
-        <h2 className="text-2xl font-bold text-center py-6 border-b border-gray-600">لوحة التحكم</h2>
-        <nav className="flex-1">
-          <ul>
-            <SidebarItem label="إدارة العملاء" id="customers" setActive={setActiveSection} />
-            <SidebarItem label="الفواتير" id="invoices" setActive={setActiveSection} />
-            <SidebarItem label="السجلات المالية" id="finance" setActive={setActiveSection} />
-            <SidebarItem label="المخزن" id="inventory" setActive={setActiveSection} />
-          </ul>
-        </nav>
+      <aside className="w-60 bg-gray-800 text-white p-6 space-y-4">
+        <h2 className="text-xl font-bold mb-6">القائمة</h2>
+        <button className="btn w-full rounded-md">الرئيسية</button>
+        <button className="btn w-full rounded-md">الطلبات</button>
+        <button className="btn w-full rounded-md">المخزون</button>
+        <button className="btn w-full rounded-md">العملاء</button>
+        <button className="btn w-full rounded-md">التقارير</button>
+        <button className="btn w-full rounded-md">الإعدادات</button>
       </aside>
 
       {/* المحتوى الرئيسي */}
-      <main className="flex-1 p-8">{renderSection()}</main>
-    </div>
+      <section className="flex-1 bg-gray-100 p-10">
+        <h1 className="text-3xl font-bold mb-8">لوحة التحكم</h1>
+
+        <div className="grid grid-cols-2 gap-6">
+          <div className="bg-white p-6 rounded shadow">
+            <h3 className="text-lg font-semibold mb-2">عدد الطلبات اليوم</h3>
+            <p className="text-2xl font-bold text-blue-600">124</p>
+          </div>
+          <div className="bg-white p-6 rounded shadow">
+            <h3 className="text-lg font-semibold mb-2">عدد العملاء</h3>
+            <p className="text-2xl font-bold text-green-600">58</p>
+          </div>
+          <div className="bg-white p-6 rounded shadow">
+            <h3 className="text-lg font-semibold mb-2">المنتجات منخفضة</h3>
+            <p className="text-2xl font-bold text-red-600">9</p>
+          </div>
+          <div className="bg-white p-6 rounded shadow">
+            <h3 className="text-lg font-semibold mb-2">الإيرادات هذا الشهر</h3>
+            <p className="text-2xl font-bold text-purple-600">1,250 OMR</p>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
-
-// مكون العنصر في الشريط الجانبي
-function SidebarItem({ label, id, setActive }) {
-  return (
-    <li
-      onClick={() => setActive(id)}
-      className="p-4 hover:bg-gray-700 cursor-pointer border-b border-gray-700"
-    >
-      {label}
-    </li>
-  );
-}
-
-SidebarItem.propTypes = {
-  label: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  setActive: PropTypes.func.isRequired,
-};
-
-// مكون القسم الذي يعرض المحتوى بناءً على القسم النشط
-function Section({ title, text }) {
-  return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
-      <h3 className="text-xl font-semibold mb-4">{title}</h3>
-      <p className="text-gray-700">{text}</p>
-    </div>
-  );
-}
-
-Section.propTypes = {
-  title: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-};
